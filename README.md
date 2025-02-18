@@ -10,7 +10,7 @@ This project implements a house price prediction service for Sound Realty, featu
 - A user-friendly web interface for realtors
 - Integration of demographic data for better predictions
 
-![User Interface](frontend/image.png "User Interface")
+![User Interface](image.png "User Interface")
 
 The user interface is designed to provide realtors with an intuitive and efficient way to input property details and receive instant price predictions. This enhances their ability to make data-driven decisions quickly, ultimately improving client interactions and increasing their competitive edge in the market.
 
