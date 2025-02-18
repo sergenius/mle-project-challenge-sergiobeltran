@@ -44,3 +44,42 @@ docs/PRESENTATION.md
 # OS
 .DS_Store
 Thumbs.db
+
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!README.md
+!Instructions.pdf
+!docs/
+!docs/*
+
+# Even if they are in subdirectories
+!*/
+
+# Python specific files to keep
+!requirements.txt
+!*.py
+!*.ipynb
+
+# Frontend files to keep
+!frontend/
+!frontend/*.html
+!frontend/*.css
+!frontend/*.js
+!frontend/nginx.conf
+
+# Docker files to keep
+!Dockerfile
+!docker-compose.yml
+
+# Keep data directory structure but ignore contents
+!data/
+data/*
+!data/.gitkeep
+
+# Keep model directory structure but ignore contents
+!model/
+model/*
+!model/.gitkeep

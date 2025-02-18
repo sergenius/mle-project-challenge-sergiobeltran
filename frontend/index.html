@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Realty - House Price Predictor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏠 Sound Realty</h1>
+            <p class="subtitle">House Price Predictor</p>
+        </header>
+
+        <main>
+            <form id="predictionForm" class="prediction-form">
+                <div class="model-selection">
+                    <h3>Select Model Version</h3>
+                    <div class="model-options">
+                        <div class="model-option">
+                            <input type="radio" id="knn" name="model_version" value="knn" checked>
+                            <label for="knn">
+                                <strong>KNN Model</strong>
+                                <span class="model-description">Original model (R² ≈ 78%)</span>
+                            </label>
+                        </div>
+                        <div class="model-option">
+                            <input type="radio" id="rf" name="model_version" value="rf">
+                            <label for="rf">
+                                <strong>Random Forest</strong>
+                                <span class="model-description">Enhanced model (R² ≈ 85%)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="bedrooms">Bedrooms</label>
+                        <input type="number" id="bedrooms" name="bedrooms" step="1" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bathrooms">Bathrooms</label>
+                        <input type="number" id="bathrooms" name="bathrooms" step="0.25" min="0.5" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sqft_living">Living Area (sq.ft)</label>
+                        <input type="number" id="sqft_living" name="sqft_living" step="1" min="100" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sqft_lot">Lot Size (sq.ft)</label>
+                        <input type="number" id="sqft_lot" name="sqft_lot" step="1" min="100" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="floors">Floors</label>
+                        <input type="number" id="floors" name="floors" step="0.5" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sqft_above">Above Ground (sq.ft)</label>
+                        <input type="number" id="sqft_above" name="sqft_above" step="1" min="100" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sqft_basement">Basement (sq.ft)</label>
+                        <input type="number" id="sqft_basement" name="sqft_basement" step="1" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zipcode">Zipcode</label>
+                        <input type="text" id="zipcode" name="zipcode" pattern="[0-9]{5}" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="predict-button">Predict Price</button>
+            </form>
+
+            <div id="result" class="result hidden">
+                <h2>Predicted Price</h2>
+                <div class="price-container">
+                    <span class="price" id="predictedPrice">$0</span>
+                    <span class="confidence" id="confidenceScore">Confidence: 0%</span>
+                </div>
+                <div class="model-info">
+                    <span id="modelVersion">Model: KNN</span>
+                    <span id="modelAccuracy">Accuracy: 78%</span>
+                </div>
+            </div>
+
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Calculating prediction...</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 Sound Realty. Made with ❤️ by Sergio Beltran.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

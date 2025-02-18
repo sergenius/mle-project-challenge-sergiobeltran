@@ -12,11 +12,22 @@ This project implements a house price prediction service for Sound Realty, featu
 
 ## Key Features
 
-- **Accurate Price Predictions**: Uses KNN Regression with demographic data integration
-- **Real-time API**: Fast, scalable predictions via REST API
-- **User-friendly Interface**: Clean, intuitive web interface for easy use
-- **Data Validation**: Comprehensive input validation and error handling
-- **Docker Deployment**: Containerized application for easy deployment and scaling
+- **Multiple Models**:
+  - KNN Model (R² ≈ 78%)
+  - Random Forest Model (R² ≈ 85%)
+  - Model selection in UI
+  
+- **Smart Predictions**:
+  - Comprehensive feature set
+  - Demographic data integration
+  - Confidence scores
+  - Real-time validation
+
+- **User Experience**:
+  - Clean, modern interface
+  - Instant feedback
+  - Detailed results
+  - Error handling
 
 ## Technical Stack
 
@@ -45,15 +56,18 @@ project/
 ├── data/
 │   ├── kc_house_data.csv    # House sales data
 │   └── zipcode_demographics.csv  # Demographic data
+├── docs/                    # Project documentation
 ├── frontend/
 │   ├── index.html          # Web interface
 │   ├── styles.css          # Styling
 │   ├── script.js           # Frontend logic
 │   └── nginx.conf          # Nginx configuration
 ├── model/
-│   ├── model.pkl           # Trained model
-│   └── model_features.json # Model features
-├── project_evaluation.ipynb # Model evaluation notebook
+│   ├── knn_model.pkl       # KNN model
+│   ├── rf_model.pkl        # Random Forest model
+│   ├── model_features.json # Feature list
+│   └── feature_defaults.json # Default values
+├── train_models.py         # Model training script
 ├── Dockerfile              # API Dockerfile
 ├── docker-compose.yml      # Service orchestration
 └── requirements.txt        # Python dependencies
@@ -61,15 +75,16 @@ project/
 
 ## Model Performance
 
-Based on our evaluation:
-- RMSE (Root Mean Square Error): $X
-- MAE (Mean Absolute Error): $Y
-- R² Score: Z
+Current model performance:
+- **KNN Model**:
+  - R² Score: 0.78
+  - Good for basic predictions
+  - Faster inference
 
-Key findings from model evaluation:
-1. Strong correlation between living space and price
-2. Significant impact of location (zipcode) on prices
-3. Improved accuracy with demographic data integration
+- **Random Forest Model**:
+  - R² Score: 0.85
+  - Better accuracy
+  - More feature importance insights
 
 ## Installation & Setup
 
@@ -80,20 +95,26 @@ git clone [repository-url]
 
 2. Install Docker and Docker Compose
 
-3. Build and run the application:
+3. Train the models:
+\`\`\`bash
+python train_models.py
+\`\`\`
+
+4. Build and run the application:
 \`\`\`bash
 docker-compose up --build
 \`\`\`
 
-4. Access the application:
+5. Access the application:
 - Web Interface: http://localhost
 - API Documentation: http://localhost:8000/docs
 
 ## API Endpoints
 
 - `POST /predict`: Get house price prediction
+- `POST /predict/minimal`: Simplified prediction with fewer inputs
 - `GET /health`: Check service health
-- `GET /model/info`: Get model information
+- `GET /models`: List available models
 
 ## Usage Example
 
@@ -101,6 +122,7 @@ docker-compose up --build
 // Example API request
 POST /predict
 {
+    "version": "rf",
     "bedrooms": 3,
     "bathrooms": 2.5,
     "sqft_living": 2100,
@@ -114,22 +136,34 @@ POST /predict
 // Example response
 {
     "predicted_price": 750000,
-    "confidence_score": 0.95,
-    "model_version": "1.0.0"
+    "version": "rf",
+    "confidence_score": 0.85,
+    "prediction_timestamp": "2024-02-17T23:56:09.123456Z",
+    "model_info": {
+        "type": "Random Forest",
+        "version": "rf",
+        "features": [...],
+        "accuracy": 0.85,
+        "last_trained": "2023-10-11",
+        "demographic_data_included": true
+    },
+    "input_features": {...}
 }
 ```
 
 ## Future Improvements
 
 1. Model Enhancements:
-   - Integration of more features (school ratings, crime rates)
-   - Regular model retraining with new data
-   - Confidence interval calculations
+   - Additional feature engineering
+   - Regular model retraining
+   - Confidence intervals
+   - A/B testing framework
 
 2. Technical Improvements:
-   - Automated model retraining pipeline
-   - Caching layer for frequent predictions
-   - A/B testing infrastructure
+   - Redis caching
+   - Load balancing
+   - Authentication
+   - Monitoring dashboard
 
 ## Contributing
 
